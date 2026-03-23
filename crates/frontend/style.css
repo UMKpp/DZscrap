@@ -1,0 +1,222 @@
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --text-white: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-accent: #818cf8;
+    --border: #334155;
+    --success: #22c55e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.tagline {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.url-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    background: var(--bg-card);
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.result-card {
+    background: var(--bg-card);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.result-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-white);
+}
+
+.url {
+    color: var(--text-accent);
+    word-break: break-all;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.metadata {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    background: #1e293b;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+
+a {
+    color: var(--text-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.loader, .empty-state {
+    text-align: center;
+    padding: 4rem;
+    border: 2px dashed var(--border);
+    border-radius: 1rem;
+    color: var(--text-muted);
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.history-list {
+    background: var(--bg-card);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+}
+
+.history-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid var(--border);
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.history-title {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-url {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
