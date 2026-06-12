@@ -43,6 +43,6 @@ This extension requires you to have the Image Scraper Pro backend server running
 * **Purpose:** Stores the backend API Server URL locally.
 * **Justification:** Allows the extension to remember the user's custom server URL (e.g., `http://localhost:8000`) across sessions so it doesn't need to be re-entered each time the popup is opened.
 
-#### Permission: `host_permissions` (`http://localhost:8000/*`, `http://127.0.0.1:8000/*`)
-* **Purpose:** Allows communication with the local backend APIs.
-* **Justification:** The extension must make HTTP requests (`GET`/`POST`/`DELETE`) to check backend server health, fetch job logs, and start scraping tasks. Since the server runs locally on the host machine, these specific localhost patterns are required.
+#### Permission: `host_permissions` (`https://*.onrender.com/*`, `http://localhost/*`, `http://127.0.0.1/*`, `http://localhost:8000/*`, `http://127.0.0.1:8000/*`)
+* **Purpose:** Allows communication with backend APIs (either deployed or local).
+* **Justification:** The extension must make HTTP requests (`GET`/`POST`/`DELETE`) to check backend server health, fetch job logs, and start scraping tasks. Since the backend server can be hosted on Render (`*.onrender.com`) or run locally on the host machine (`localhost` or `127.0.0.1`), these specific host patterns are required for CORS bypass and to securely transmit commands to the user's active backend.
