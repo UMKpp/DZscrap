@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Image Scraper Pro",
+  "version": "1.0.0",
+  "description": "Scrape and download thousands of images for ML dataset creation.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "http://localhost:8000/*",
+    "http://127.0.0.1:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
