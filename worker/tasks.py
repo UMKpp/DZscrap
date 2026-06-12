@@ -31,9 +31,17 @@ def scrape_images_task(self, job_id: str, query: str, limit: int, engine: str):
     
     # Set up Scrapy crawler environment variables
     # Add database URL so Scrapy pipeline can connect to the database
+    # Inject PYTHONPATH so scraper can import from backend
     env = os.environ.copy()
     env["DATABASE_URL"] = config.DATABASE_URL
     env["STORAGE_DIR"] = str(config.STORAGE_DIR)
+    
+    base_dir_str = str(config.BASE_DIR)
+    current_pythonpath = env.get("PYTHONPATH", "")
+    if current_pythonpath:
+        env["PYTHONPATH"] = f"{base_dir_str}{os.pathsep}{current_pythonpath}"
+    else:
+        env["PYTHONPATH"] = base_dir_str
     
     # Define cmd to launch scrapy spider
     cmd = [
