@@ -2,19 +2,23 @@ import logging
 from sqlalchemy import create_engine, event
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 from backend import config
 
 logger = logging.getLogger(__name__)
 
 # SQLAlchemy setup
 connect_args = {}
+engine_kwargs = {"pool_pre_ping": True}
+
 if config.DATABASE_URL.startswith("sqlite"):
     connect_args["check_same_thread"] = False
+    engine_kwargs["poolclass"] = NullPool
 
 engine = create_engine(
     config.DATABASE_URL,
     connect_args=connect_args,
-    pool_pre_ping=True
+    **engine_kwargs
 )
 
 # Enable WAL mode and other optimizations for SQLite

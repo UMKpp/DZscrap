@@ -1,3 +1,10 @@
+/**
+ * Image Scraper Pro Client - popup.js
+ * Coordinates UI events, storage loads, backend state checks, 
+ * job queueing, and polling for the companion local scraper server.
+ *
+ * Safe & secure: strictly local traffic, zero tracking or data collection.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   // Config state
   let API_URL = "http://localhost:8000";
@@ -198,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         ${job.error_message ? `<div class="job-error-msg">${escapeHtml(job.error_message)}</div>` : ""}
         <div class="job-actions" data-id="${job.id}">
-          ${job.status === "completed" ? `<a href="${API_URL}/api/v1/jobs/${job.id}/export" class="action-btn export-btn" download>📥 Download Dataset</a>` : ""}
+          ${job.status === "completed" && job.total_downloaded > 0 ? `<a href="${API_URL}/api/v1/jobs/${job.id}/export" class="action-btn export-btn" download>📥 Download Dataset</a>` : ""}
           <button class="action-btn delete-btn">🗑️ Delete</button>
         </div>
       `;

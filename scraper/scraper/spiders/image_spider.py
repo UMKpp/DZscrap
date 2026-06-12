@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from urllib.parse import urlparse, parse_qs, quote_plus
 from PIL.Image import item
 import scrapy
@@ -21,8 +22,8 @@ class ImageSpider(scrapy.Spider):
         
         logger.info(f"Initialized ImageSpider: job_id={self.job_id}, query='{self.query}', limit={self.limit}, engine='{self.engine}'")
 
-    def start_requests(self):
-        logger.info(f"start_requests called! Query: {self.query}, Engine: {self.engine}")
+    async def start(self):
+        logger.info(f"start called! Query: {self.query}, Engine: {self.engine}")
         if not self.query:
             logger.error("No search query or URL provided.")
             return
@@ -37,7 +38,7 @@ class ImageSpider(scrapy.Spider):
                 dont_filter=True,
                 meta={
                     "playwright": True,
-                    "playwright_page": True,
+                    "playwright_include_page": True,
                     "playwright_include_body": True,
                 }
             )
@@ -50,7 +51,7 @@ class ImageSpider(scrapy.Spider):
                 dont_filter=True,
                 meta={
                     "playwright": True,
-                    "playwright_page": True,
+                    "playwright_include_page": True,
                     "playwright_include_body": True,
                 }
             )
@@ -66,7 +67,7 @@ class ImageSpider(scrapy.Spider):
                 dont_filter=True,
                 meta={
                     "playwright": True,
-                    "playwright_page": True,
+                    "playwright_include_page": True,
                     "playwright_include_body": True,
                 }
             )
@@ -76,10 +77,11 @@ class ImageSpider(scrapy.Spider):
     async def parse(self, response):
         page = response.meta.get("playwright_page")
         
-        if not page:
+        if not page or isinstance(page, bool):
             logger.warning("Playwright page not loaded. Falling back to static parsing.")
             for item in self.parse_static(response):
                 yield item
+            return
 
         try:
             logger.info("Playwright page loaded successfully. Starting scroll actions...")
@@ -182,19 +184,30 @@ class ImageSpider(scrapy.Spider):
                 except Exception:
                     continue
         elif self.engine == "google":
-            # Google images: extract from anchor links with href matching /imgres?imgurl=
-            for href in response.css("a[href*='/imgres?imgurl=']::attr(href)").getall():
-                try:
-                    parsed = urlparse(href)
-                    queries = parse_qs(parsed.query)
-                    img_url = queries.get("imgurl", [None])[0]
-                    if img_url and img_url.startswith("http"):
-                        urls.append(img_url)
-                except Exception:
-                    continue
-                    
-            # Fallback/Additional check: direct image tags
-            if len(urls) < 10:
+            # 1. Try to extract from script tags (modern dynamic UI/layout)
+            for script in response.css("script::text").getall():
+                # Find all quoted URLs in the script
+                for u in re.findall(r'"(https?://[^"]+)"', script.replace(r"\/", "/")):
+                    if not any(x in u for x in ["google.", "gstatic.com", "schema.org", "doubleclick.net", "facebook.com", "twitter.com", "recaptcha"]):
+                        # Check if it has a common image extension or looks like an image URL
+                        low_u = u.lower()
+                        if any(ext in low_u for ext in [".jpg", ".jpeg", ".png", ".webp"]):
+                            urls.append(u)
+            
+            # 2. Try the legacy fallback /imgres?imgurl=
+            if not urls:
+                for href in response.css("a[href*='/imgres?imgurl=']::attr(href)").getall():
+                    try:
+                        parsed = urlparse(href)
+                        queries = parse_qs(parsed.query)
+                        img_url = queries.get("imgurl", [None])[0]
+                        if img_url and img_url.startswith("http"):
+                            urls.append(img_url)
+                    except Exception:
+                        continue
+                        
+            # 3. Last resort fallback: direct img src tags starting with http
+            if not urls:
                 for src in response.css("img::attr(src)").getall() + response.css("img::attr(data-src)").getall():
                     if src.startswith("http"):
                         urls.append(src)

@@ -110,6 +110,27 @@ celery -A worker.celery_app.celery_app worker --loglevel=info
 
 ---
 
+## 📦 Packaging for Chrome Web Store
+
+The project includes a utility script `package_extension.py` to prepare the extension for publication. This script uses the `Pillow` library to:
+1. Take the raw logo (`extension/icons/logo_raw.png`) and generate the required CWS sizes (`16x16`, `48x48`, and `128x128` PNGs).
+2. Zip the extension files into a publication-ready bundle (`image_scraper_pro_extension.zip`).
+
+To run it:
+```bash
+# Install Pillow if not already installed
+pip install Pillow
+
+# Run the packager script
+python package_extension.py
+```
+
+This creates `image_scraper_pro_extension.zip` in the root directory, which can be uploaded directly to the [Chrome Developer Dashboard](https://chrome.google.com/webstore/devconsole).
+
+For CWS submission metadata and permissions justifications, refer to [STORE_LISTING.md](STORE_LISTING.md). For user data policies, see the [PRIVACY_POLICY.md](PRIVACY_POLICY.md).
+
+---
+
 ## 📂 Project Structure
 
 ```
@@ -135,7 +156,11 @@ celery -A worker.celery_app.celery_app worker --loglevel=info
 │   ├── manifest.json     # Chrome Extension Manifest V3
 │   ├── popup.html        # Extension UI layout
 │   ├── style.css         # Glassmorphism dark-theme styling
-│   └── popup.js          # REST Client and polling controller
+│   ├── popup.js          # REST Client and polling controller
+│   └── icons/            # CWS compliant icons (16, 48, 128)
+│       ├── icon16.png
+│       ├── icon48.png
+│       └── icon128.png
 ├── storage/              # Local storage for images and db.sqlite3
 ├── logs/                 # Log directories for worker & api
 ├── docker/

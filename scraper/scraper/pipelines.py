@@ -16,7 +16,10 @@ class ImageDownloadPipeline:
     """Pipeline to download image bytes, compute SHA256, verify validity, and check duplicates."""
     
     def __init__(self):
-        # Create an async HTTP client for downloading images
+        self.client = None
+
+    def open_spider(self, spider):
+        # Create AsyncClient inside running event loop context
         self.client = httpx.AsyncClient(
             timeout=10.0,
             follow_redirects=True,
@@ -26,10 +29,11 @@ class ImageDownloadPipeline:
         )
 
     async def close_spider(self, spider):
-        await self.client.aclose()
+        if self.client:
+            await self.client.aclose()
 
     async def process_item(self, item, spider):
-        job_id = item["job_id"]
+        job_id = item.get("job_id") or "default_job"
         url = item["image_url"]
         
         # Ensure job directory exists
@@ -137,7 +141,7 @@ class DatabasePipeline:
     """Pipeline to write scraped image metadata to SQLite database and update job progress."""
     
     def process_item(self, item, spider):
-        job_id = item["job_id"]
+        job_id = item.get("job_id") or "default_job"
         
         db = SessionLocal()
         try:
