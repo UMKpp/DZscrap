@@ -1,6 +1,7 @@
 import json
 import logging
 from urllib.parse import urlparse, parse_qs, quote_plus
+from PIL.Image import item
 import scrapy
 from scrapy.selector import Selector
 from scraper.items import ImageItem
@@ -21,6 +22,7 @@ class ImageSpider(scrapy.Spider):
         logger.info(f"Initialized ImageSpider: job_id={self.job_id}, query='{self.query}', limit={self.limit}, engine='{self.engine}'")
 
     def start_requests(self):
+        logger.info(f"start_requests called! Query: {self.query}, Engine: {self.engine}")
         if not self.query:
             logger.error("No search query or URL provided.")
             return
@@ -28,9 +30,11 @@ class ImageSpider(scrapy.Spider):
         # Build start URLs based on the engine
         if self.engine == "bing":
             url = f"https://www.bing.com/images/search?q={quote_plus(self.query)}"
+            logger.info(f"Yielding Bing request: {url}")
             yield scrapy.Request(
                 url=url,
                 callback=self.parse,
+                dont_filter=True,
                 meta={
                     "playwright": True,
                     "playwright_page": True,
@@ -39,9 +43,11 @@ class ImageSpider(scrapy.Spider):
             )
         elif self.engine == "google":
             url = f"https://www.google.com/search?q={quote_plus(self.query)}&tbm=isch"
+            logger.info(f"Yielding Google request: {url}")
             yield scrapy.Request(
                 url=url,
                 callback=self.parse,
+                dont_filter=True,
                 meta={
                     "playwright": True,
                     "playwright_page": True,
@@ -53,9 +59,11 @@ class ImageSpider(scrapy.Spider):
             url = self.query
             if not url.startswith("http"):
                 url = f"https://{url}"
+            logger.info(f"Yielding Generic request: {url}")
             yield scrapy.Request(
                 url=url,
                 callback=self.parse,
+                dont_filter=True,
                 meta={
                     "playwright": True,
                     "playwright_page": True,
@@ -70,8 +78,8 @@ class ImageSpider(scrapy.Spider):
         
         if not page:
             logger.warning("Playwright page not loaded. Falling back to static parsing.")
-            yield from self.parse_static(response)
-            return
+            for item in self.parse_static(response):
+                yield item
 
         try:
             logger.info("Playwright page loaded successfully. Starting scroll actions...")
@@ -145,7 +153,8 @@ class ImageSpider(scrapy.Spider):
             await page.close()
             
             # Extract and yield items
-            yield from self.parse_final_results(final_response)
+            for item in self.parse_final_results(final_response):
+                yield item
             
         except Exception as e:
             logger.error(f"Error during Playwright parsing loop: {e}", exc_info=True)
@@ -156,7 +165,8 @@ class ImageSpider(scrapy.Spider):
                 except Exception:
                     pass
             # Yield whatever we have in the response so far
-            yield from self.parse_final_results(response)
+            for item in self.parse_final_results(response):
+                yield item
 
     def extract_image_urls(self, response):
         """Helper to extract raw image URLs from the selector based on current engine."""
