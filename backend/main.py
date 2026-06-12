@@ -42,7 +42,7 @@ app = FastAPI(
 # Enable CORS for Chrome Extension and local testing
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for extension popups
+    allow_origins=config.ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

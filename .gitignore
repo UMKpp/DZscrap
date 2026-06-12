@@ -1,0 +1,21 @@
+# Environment variables
+.env
+
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Project specific directories
+storage/
+logs/
+
+# MacOS
+.DS_Store

@@ -7,7 +7,7 @@
  */
 document.addEventListener("DOMContentLoaded", () => {
   // Config state
-  let API_URL = "http://localhost:8000";
+  let API_URL = "https://your-app-name.onrender.com";
   let activePollInterval = null;
 
   // DOM Elements

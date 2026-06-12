@@ -16,6 +16,10 @@ DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{STORAGE_DIR}/db.sqlite3")
 # Redis / Celery
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
+# CORS Allowed Origins
+# Can be a comma-separated list like: https://your-render-domain.onrender.com,chrome-extension://abcdefghijklmnop
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:8000").split(",")
+
 # Scraper subprocess path
 SCRAPER_DIR = BASE_DIR / "scraper"
 LOGS_DIR = BASE_DIR / "logs"

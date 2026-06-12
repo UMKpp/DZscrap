@@ -22,5 +22,5 @@ RUN playwright install --with-deps chromium
 # Copy codebase
 COPY . .
 
-# Run Celery worker
-CMD ["celery", "-A", "worker.celery_app.celery_app", "worker", "--loglevel=info"]
+# Run Celery worker with concurrency 2
+CMD ["celery", "-A", "worker.celery_app.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
