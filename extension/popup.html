@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Scraper Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="logo-area">
+        <div class="logo-glow"></div>
+        <span class="logo-icon">📸</span>
+        <h1>Image Scraper <span class="logo-accent">Pro</span></h1>
+      </div>
+      <button id="btn-settings" class="icon-button" title="Configure API Server">⚙️</button>
+    </header>
+
+    <!-- Settings Pane (Collapsible) -->
+    <div id="settings-pane" class="settings-pane hidden">
+      <h3>API Settings</h3>
+      <div class="input-group">
+        <label for="input-api-url">FastAPI Server URL</label>
+        <input type="text" id="input-api-url" value="http://localhost:8000" placeholder="http://localhost:8000">
+      </div>
+      <button id="btn-save-settings" class="btn btn-secondary">Save Configuration</button>
+    </div>
+
+    <!-- Main Content Tabs -->
+    <main>
+      <!-- Form Section -->
+      <section class="scraping-form-card">
+        <div class="form-title">Start Scrape Job</div>
+        
+        <div class="input-group">
+          <label for="input-query">Keyword or URL</label>
+          <input type="text" id="input-query" placeholder="e.g. cute golden retriever puppies" required>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group half">
+            <label for="select-engine">Source Engine</label>
+            <select id="select-engine">
+              <option value="bing" selected>Bing Images</option>
+              <option value="google">Google Images</option>
+              <option value="generic">Generic Website (URL)</option>
+            </select>
+          </div>
+
+          <div class="input-group half">
+            <label for="input-limit">Limit (max 2000)</label>
+            <input type="number" id="input-limit" value="100" min="10" max="2000">
+          </div>
+        </div>
+
+        <button id="btn-start-scrape" class="btn btn-primary">
+          <span class="btn-text">Queue Scraping Job</span>
+          <span class="btn-glow"></span>
+        </button>
+      </section>
+
+      <!-- Active & Historical Jobs Section -->
+      <section class="jobs-section">
+        <div class="section-header">
+          <h2>Active Jobs</h2>
+          <button id="btn-refresh-jobs" class="text-button">🔄 Refresh</button>
+        </div>
+
+        <div id="jobs-list" class="jobs-list">
+          <div class="empty-state">
+            <p>No active jobs found. Start a new scrape above!</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Status Bar -->
+    <footer>
+      <div class="status-indicator">
+        <span id="connection-dot" class="dot offline"></span>
+        <span id="connection-text">Connecting to Backend...</span>
+      </div>
+      <span class="version">v1.0.0</span>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
