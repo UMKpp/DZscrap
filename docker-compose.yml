@@ -24,6 +24,9 @@ services:
     volumes:
       - ./storage:/app/storage
       - ./logs:/app/logs
+      - ./backend:/app/backend
+      - ./worker:/app/worker
+      - ./scraper:/app/scraper
     depends_on:
       - redis
     restart: unless-stopped
@@ -40,6 +43,9 @@ services:
     volumes:
       - ./storage:/app/storage
       - ./logs:/app/logs
+      - ./backend:/app/backend
+      - ./worker:/app/worker
+      - ./scraper:/app/scraper
     depends_on:
       - redis
       - backend
