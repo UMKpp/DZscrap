@@ -40,7 +40,12 @@ def package_zip():
         "style.css",
         "icons/icon16.png",
         "icons/icon48.png",
-        "icons/icon128.png"
+        "icons/icon128.png",
+        "icons/settings.png",
+        "icons/completed.png",
+        "icons/failed.png",
+        "icons/delete_zip_file.png",
+        "icons/refresh.png"
     ]
     
     # Check if all files exist
