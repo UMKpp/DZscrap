@@ -478,3 +478,470 @@
 2026-06-13 11:43:31,023 [INFO] backend.database: SQLite connection initialized with WAL mode.
 2026-06-13 11:43:33,524 [INFO] backend.database: SQLite connection initialized with WAL mode.
 2026-06-13 11:47:03,661 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:46:41,744 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-15 22:46:41,746 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-15 22:46:41,747 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-15 22:46:41,815 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:46:41,815 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-15 22:46:41,815 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:46:41,828 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:46:41,865 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:47:36,690 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:12,455 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:27,162 [INFO] backend.main: Received scrape request: query='cute puppies', limit=100, engine='bing'
+2026-06-15 22:48:27,209 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:27,299 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:27,309 [INFO] backend.main: Created job 0e74167e-f1b6-436d-88e4-abdbd7086fad in database. Dispatching Celery task...
+2026-06-15 22:48:27,606 [INFO] backend.main: Successfully dispatched Celery task for job 0e74167e-f1b6-436d-88e4-abdbd7086fad
+2026-06-15 22:48:27,695 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:30,306 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:32,805 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:35,330 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:37,841 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:40,321 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:42,819 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:45,813 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:47,814 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:50,874 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:52,824 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:55,824 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:48:57,800 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:00,794 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:02,784 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:05,805 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:07,829 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:10,335 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:12,872 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:15,882 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 22:49:16,038 [INFO] backend.main: Generating export archive for job 0e74167e-f1b6-436d-88e4-abdbd7086fad...
+2026-06-15 22:49:23,036 [INFO] backend.main: Created export zip dataset archive at: /app/storage/exports/0e74167e-f1b6-436d-88e4-abdbd7086fad.zip
+2026-06-15 22:55:53,326 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:10:50,785 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:12:44,076 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:12:49,897 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:12:49,905 [INFO] backend.main: Deleting job 5aceb2c3-f4e1-4519-b4a6-7ed66322bc76 and clean up storage
+2026-06-15 23:12:50,040 [INFO] backend.main: Deleted storage directory: /app/storage/images/5aceb2c3-f4e1-4519-b4a6-7ed66322bc76
+2026-06-15 23:12:50,054 [INFO] backend.main: Deleted export archive: /app/storage/exports/5aceb2c3-f4e1-4519-b4a6-7ed66322bc76.zip
+2026-06-15 23:12:50,202 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:12:53,323 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:12:53,329 [INFO] backend.main: Deleting job 51864ca1-1971-4f7d-bee3-3e400de36c5e and clean up storage
+2026-06-15 23:12:53,438 [INFO] backend.main: Deleted storage directory: /app/storage/images/51864ca1-1971-4f7d-bee3-3e400de36c5e
+2026-06-15 23:12:53,562 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:12:57,387 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:12:57,391 [INFO] backend.main: Deleting job 0e74167e-f1b6-436d-88e4-abdbd7086fad and clean up storage
+2026-06-15 23:12:57,617 [INFO] backend.main: Deleted storage directory: /app/storage/images/0e74167e-f1b6-436d-88e4-abdbd7086fad
+2026-06-15 23:12:57,624 [INFO] backend.main: Deleted export archive: /app/storage/exports/0e74167e-f1b6-436d-88e4-abdbd7086fad.zip
+2026-06-15 23:12:57,747 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:13:00,429 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:13:00,433 [INFO] backend.main: Deleting job 657391ad-5f42-4e4e-bd03-81ca4cf463a0 and clean up storage
+2026-06-15 23:13:00,459 [INFO] backend.main: Deleted storage directory: /app/storage/images/657391ad-5f42-4e4e-bd03-81ca4cf463a0
+2026-06-15 23:13:00,574 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-15 23:14:04,041 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 12:26:05,313 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-16 12:26:05,322 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-16 12:26:05,342 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-16 12:26:05,356 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 12:26:05,360 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 12:26:05,361 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 12:26:05,374 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-16 12:26:05,403 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 12:26:57,156 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:10,818 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:27,382 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:35,429 [INFO] backend.main: Received scrape request: query='girls', limit=100, engine='bing'
+2026-06-16 21:55:35,494 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:35,593 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:35,600 [INFO] backend.main: Created job 55c281f9-8a80-4f8a-adcf-d1becc697bd5 in database. Dispatching Celery task...
+2026-06-16 21:55:36,244 [INFO] backend.main: Successfully dispatched Celery task for job 55c281f9-8a80-4f8a-adcf-d1becc697bd5
+2026-06-16 21:55:36,319 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:38,929 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:41,434 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:43,980 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:46,455 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:48,949 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:51,446 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:53,968 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:56,480 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:55:58,950 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:56:01,429 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:56:03,964 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:56:06,444 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:56:08,912 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:56:11,407 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-16 21:56:13,951 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:15,390 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-17 07:34:15,407 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-17 07:34:15,459 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-17 07:34:15,486 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-17 07:34:15,498 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:15,504 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:15,506 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:15,517 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:16,658 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:21,605 [INFO] backend.main: Received scrape request: query='https://www.pinterest.com/', limit=100, engine='bing'
+2026-06-17 07:34:22,117 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:22,352 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:22,369 [INFO] backend.main: Created job 52099aec-1a18-49f0-8f3f-ed4b6232dcff in database. Dispatching Celery task...
+2026-06-17 07:34:22,775 [INFO] backend.main: Successfully dispatched Celery task for job 52099aec-1a18-49f0-8f3f-ed4b6232dcff
+2026-06-17 07:34:22,862 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:25,800 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:28,712 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:30,485 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:32,764 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:32,774 [INFO] backend.main: Deleting job 55c281f9-8a80-4f8a-adcf-d1becc697bd5 and clean up storage
+2026-06-17 07:34:33,021 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:33,185 [INFO] backend.main: Deleted storage directory: /app/storage/images/55c281f9-8a80-4f8a-adcf-d1becc697bd5
+2026-06-17 07:34:33,598 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:36,229 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:38,056 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:40,528 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:43,361 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:45,489 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:34:48,236 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:16,732 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:19,387 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:23,497 [INFO] backend.main: Received scrape request: query='https://www.bing.com/images/ideas/vehicles?nvid=45&FORM=IFPCOD', limit=100, engine='bing'
+2026-06-17 07:35:23,558 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:23,708 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:23,730 [INFO] backend.main: Created job dd81f2a1-a7b9-4bf7-b98a-b263196cdcaa in database. Dispatching Celery task...
+2026-06-17 07:35:24,103 [INFO] backend.main: Successfully dispatched Celery task for job dd81f2a1-a7b9-4bf7-b98a-b263196cdcaa
+2026-06-17 07:35:24,222 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:26,901 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:26,907 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:26,939 [INFO] backend.main: Generating export archive for job 52099aec-1a18-49f0-8f3f-ed4b6232dcff...
+2026-06-17 07:35:29,327 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:35:29,866 [INFO] backend.main: Created export zip dataset archive at: /app/storage/exports/52099aec-1a18-49f0-8f3f-ed4b6232dcff.zip
+2026-06-17 07:35:31,838 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:36:10,510 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:36:13,012 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:36:13,023 [INFO] backend.main: Generating export archive for job dd81f2a1-a7b9-4bf7-b98a-b263196cdcaa...
+2026-06-17 07:36:16,122 [INFO] backend.main: Created export zip dataset archive at: /app/storage/exports/dd81f2a1-a7b9-4bf7-b98a-b263196cdcaa.zip
+2026-06-17 07:36:17,044 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:36:17,070 [INFO] backend.main: Deleting job dd81f2a1-a7b9-4bf7-b98a-b263196cdcaa and clean up storage
+2026-06-17 07:36:17,202 [INFO] backend.main: Deleted storage directory: /app/storage/images/dd81f2a1-a7b9-4bf7-b98a-b263196cdcaa
+2026-06-17 07:36:17,211 [INFO] backend.main: Deleted export archive: /app/storage/exports/dd81f2a1-a7b9-4bf7-b98a-b263196cdcaa.zip
+2026-06-17 07:36:17,460 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:36:26,957 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:36:26,964 [INFO] backend.main: Deleting job 52099aec-1a18-49f0-8f3f-ed4b6232dcff and clean up storage
+2026-06-17 07:36:27,134 [INFO] backend.main: Deleted storage directory: /app/storage/images/52099aec-1a18-49f0-8f3f-ed4b6232dcff
+2026-06-17 07:36:27,148 [INFO] backend.main: Deleted export archive: /app/storage/exports/52099aec-1a18-49f0-8f3f-ed4b6232dcff.zip
+2026-06-17 07:36:27,314 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:37:55,094 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:05,660 [INFO] backend.main: Received scrape request: query='cosmetic brands', limit=100, engine='bing'
+2026-06-17 07:38:05,721 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:05,843 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:05,848 [INFO] backend.main: Created job 08357646-8f6a-4951-916b-6d70f10023dd in database. Dispatching Celery task...
+2026-06-17 07:38:05,855 [INFO] backend.main: Successfully dispatched Celery task for job 08357646-8f6a-4951-916b-6d70f10023dd
+2026-06-17 07:38:05,962 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:08,732 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:11,095 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:13,595 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:16,250 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:18,709 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:21,081 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:22,219 [INFO] backend.main: Received scrape request: query='logo', limit=100, engine='bing'
+2026-06-17 07:38:22,271 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:22,384 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:22,388 [INFO] backend.main: Created job 792a56bd-f57e-411e-a012-607b69eaf899 in database. Dispatching Celery task...
+2026-06-17 07:38:22,393 [INFO] backend.main: Successfully dispatched Celery task for job 792a56bd-f57e-411e-a012-607b69eaf899
+2026-06-17 07:38:22,496 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:23,618 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:26,109 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:28,646 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:31,098 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:33,599 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:36,082 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:38,622 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:41,063 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:43,706 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:46,062 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:48,593 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:51,114 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:53,568 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:56,062 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:38:58,600 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:01,093 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:03,574 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:06,059 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:08,656 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:11,106 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:13,993 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:16,148 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:17,866 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:17,902 [INFO] backend.main: Generating export archive for job 08357646-8f6a-4951-916b-6d70f10023dd...
+2026-06-17 07:39:22,287 [INFO] backend.main: Created export zip dataset archive at: /app/storage/exports/08357646-8f6a-4951-916b-6d70f10023dd.zip
+2026-06-17 07:39:22,310 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:39:59,878 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:01,687 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:01,699 [INFO] backend.main: Generating export archive for job 792a56bd-f57e-411e-a012-607b69eaf899...
+2026-06-17 07:40:04,385 [INFO] backend.main: Created export zip dataset archive at: /app/storage/exports/792a56bd-f57e-411e-a012-607b69eaf899.zip
+2026-06-17 07:40:11,987 [INFO] backend.main: Received scrape request: query='gampaha', limit=100, engine='bing'
+2026-06-17 07:40:12,043 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:12,185 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:12,192 [INFO] backend.main: Created job 7304b828-ff6a-4a33-86f5-6dfee006d500 in database. Dispatching Celery task...
+2026-06-17 07:40:12,197 [INFO] backend.main: Successfully dispatched Celery task for job 7304b828-ff6a-4a33-86f5-6dfee006d500
+2026-06-17 07:40:12,279 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:14,886 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:19,566 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:19,635 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:19,649 [INFO] backend.main: Deleting job 792a56bd-f57e-411e-a012-607b69eaf899 and clean up storage
+2026-06-17 07:40:19,878 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:19,912 [INFO] backend.main: Deleted storage directory: /app/storage/images/792a56bd-f57e-411e-a012-607b69eaf899
+2026-06-17 07:40:19,927 [INFO] backend.main: Deleted export archive: /app/storage/exports/792a56bd-f57e-411e-a012-607b69eaf899.zip
+2026-06-17 07:40:20,113 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:22,454 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:22,468 [INFO] backend.main: Deleting job 08357646-8f6a-4951-916b-6d70f10023dd and clean up storage
+2026-06-17 07:40:22,477 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:22,720 [INFO] backend.main: Deleted storage directory: /app/storage/images/08357646-8f6a-4951-916b-6d70f10023dd
+2026-06-17 07:40:22,735 [INFO] backend.main: Deleted export archive: /app/storage/exports/08357646-8f6a-4951-916b-6d70f10023dd.zip
+2026-06-17 07:40:22,907 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:24,888 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:27,424 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:29,860 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:32,531 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:34,865 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:37,389 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:39,840 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:42,337 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:44,861 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:47,352 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:49,878 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:52,343 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:52,626 [INFO] backend.main: Received scrape request: query='photography', limit=100, engine='bing'
+2026-06-17 07:40:52,657 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:52,708 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:52,712 [INFO] backend.main: Created job 96b1768e-7817-4102-b194-f3f7b4e0b6cb in database. Dispatching Celery task...
+2026-06-17 07:40:52,720 [INFO] backend.main: Successfully dispatched Celery task for job 96b1768e-7817-4102-b194-f3f7b4e0b6cb
+2026-06-17 07:40:52,779 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:54,952 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:56,564 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:56,579 [INFO] backend.main: Generating export archive for job 7304b828-ff6a-4a33-86f5-6dfee006d500...
+2026-06-17 07:40:59,717 [INFO] backend.main: Created export zip dataset archive at: /app/storage/exports/7304b828-ff6a-4a33-86f5-6dfee006d500.zip
+2026-06-17 07:40:59,739 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:40:59,825 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:41:02,384 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:42:22,715 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:52:16,721 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:52:42,087 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:52:45,906 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:52:45,912 [INFO] backend.main: Deleting job 96b1768e-7817-4102-b194-f3f7b4e0b6cb and clean up storage
+2026-06-17 07:52:46,036 [INFO] backend.main: Deleted storage directory: /app/storage/images/96b1768e-7817-4102-b194-f3f7b4e0b6cb
+2026-06-17 07:52:46,556 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:52:49,013 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:52:49,019 [INFO] backend.main: Deleting job 7304b828-ff6a-4a33-86f5-6dfee006d500 and clean up storage
+2026-06-17 07:52:49,293 [INFO] backend.main: Deleted storage directory: /app/storage/images/7304b828-ff6a-4a33-86f5-6dfee006d500
+2026-06-17 07:52:49,310 [INFO] backend.main: Deleted export archive: /app/storage/exports/7304b828-ff6a-4a33-86f5-6dfee006d500.zip
+2026-06-17 07:52:49,801 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 07:59:27,609 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:00:46,891 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:00:50,536 [INFO] backend.main: Received scrape request: query='professional architectural photography', limit=100, engine='bing'
+2026-06-17 08:00:50,969 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:00:51,242 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:00:51,247 [INFO] backend.main: Created job 94b080ac-40eb-42a6-88b2-826a68e40ddc in database. Dispatching Celery task...
+2026-06-17 08:00:51,254 [INFO] backend.main: Successfully dispatched Celery task for job 94b080ac-40eb-42a6-88b2-826a68e40ddc
+2026-06-17 08:00:51,575 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:00:54,740 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:00:57,366 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:00:59,820 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:01,706 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:04,204 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:06,689 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:09,452 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:11,698 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:14,188 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:16,708 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:19,178 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:21,691 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:24,176 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:26,682 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:29,234 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:42,368 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:01:42,379 [INFO] backend.main: Generating export archive for job 94b080ac-40eb-42a6-88b2-826a68e40ddc...
+2026-06-17 08:01:44,514 [INFO] backend.main: Created export zip dataset archive at: /app/storage/exports/94b080ac-40eb-42a6-88b2-826a68e40ddc.zip
+2026-06-17 08:01:53,358 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:13:09,658 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:17:38,886 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:17:48,207 [INFO] backend.main: Received scrape request: query='tomato leaf blight', limit=100, engine='bing'
+2026-06-17 08:17:48,274 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:17:48,480 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:17:48,501 [INFO] backend.main: Created job 44af406a-2c34-475e-bef9-9516854cf643 in database. Dispatching Celery task...
+2026-06-17 08:17:49,055 [INFO] backend.main: Successfully dispatched Celery task for job 44af406a-2c34-475e-bef9-9516854cf643
+2026-06-17 08:17:50,206 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:17:55,052 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:20:20,816 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:21:24,384 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:24:51,116 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:26:03,176 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-17 08:27:17,914 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-19 01:37:25,269 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-19 01:37:25,278 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:44,101 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-18 20:07:44,110 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-18 20:07:44,115 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-18 20:07:44,149 [INFO] backend.main: Starting up FastAPI application. Creating database tables...
+2026-06-18 20:07:44,159 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:44,160 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:44,165 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:44,173 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:50,542 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:53,139 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:56,063 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:56,064 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:56,072 [INFO] backend.main: Deleting job b74c3fb1-5e21-49f2-91da-89d10077b095 and clean up storage
+2026-06-18 20:07:56,203 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:59,047 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:07:59,052 [INFO] backend.main: Deleting job 44af406a-2c34-475e-bef9-9516854cf643 and clean up storage
+2026-06-18 20:07:59,177 [INFO] backend.main: Deleted storage directory: /app/storage/images/44af406a-2c34-475e-bef9-9516854cf643
+2026-06-18 20:07:59,347 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:02,239 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:02,242 [INFO] backend.main: Deleting job 94b080ac-40eb-42a6-88b2-826a68e40ddc and clean up storage
+2026-06-18 20:08:02,369 [INFO] backend.main: Deleted storage directory: /app/storage/images/94b080ac-40eb-42a6-88b2-826a68e40ddc
+2026-06-18 20:08:02,377 [INFO] backend.main: Deleted export archive: /app/storage/exports/94b080ac-40eb-42a6-88b2-826a68e40ddc.zip
+2026-06-18 20:08:02,542 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:05,686 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:24,365 [INFO] backend.main: Received scrape request: query='damage cars', limit=2000, engine='bing'
+2026-06-18 20:08:24,435 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:24,609 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:24,615 [INFO] backend.main: Created job a3636291-7e16-442e-b5ab-372e0977e897 in database. Dispatching Celery task...
+2026-06-18 20:08:24,958 [INFO] backend.main: Successfully dispatched Celery task for job a3636291-7e16-442e-b5ab-372e0977e897
+2026-06-18 20:08:25,051 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:27,674 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:30,175 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:32,680 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:36,152 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:38,140 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:41,123 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:43,127 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:46,147 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:48,147 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:51,142 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:53,137 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:56,150 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:08:58,132 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:01,134 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:03,144 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:06,125 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:08,119 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:11,097 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:13,149 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:16,119 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:18,100 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:21,098 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:23,099 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:26,116 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:28,093 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:09:31,230 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:12:44,544 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:12:47,124 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:12:49,623 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:12:52,144 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:12:54,620 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:12:57,133 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:12:59,639 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:00,827 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:02,117 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:04,637 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:07,135 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:09,619 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:12,136 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:14,643 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:17,131 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:19,625 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:22,141 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:24,621 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:27,130 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:29,634 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:13:32,122 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:14:51,095 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:14:53,663 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:14:57,171 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:14:57,177 [INFO] backend.main: Deleting job a3636291-7e16-442e-b5ab-372e0977e897 and clean up storage
+2026-06-18 20:14:57,191 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:14:57,595 [INFO] backend.main: Deleted storage directory: /app/storage/images/a3636291-7e16-442e-b5ab-372e0977e897
+2026-06-18 20:14:57,883 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:10,721 [INFO] backend.main: Received scrape request: query='girls', limit=2000, engine='bing'
+2026-06-18 20:15:10,806 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:10,963 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:10,973 [INFO] backend.main: Created job e698478a-f6bd-4863-a81f-53bc87d137be in database. Dispatching Celery task...
+2026-06-18 20:15:11,169 [INFO] backend.main: Successfully dispatched Celery task for job e698478a-f6bd-4863-a81f-53bc87d137be
+2026-06-18 20:15:11,229 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:13,866 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:16,394 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:18,853 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:21,371 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:23,853 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:26,371 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:29,498 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:32,066 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:34,571 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:37,084 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:39,588 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:42,078 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:44,568 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:47,053 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:49,542 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:52,046 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:54,556 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:57,072 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:15:59,542 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:03,421 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:05,975 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:08,462 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:10,970 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:13,511 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:16,005 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:18,514 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:20,994 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:23,525 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:26,041 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:28,516 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:31,012 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:33,545 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:35,988 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:42,736 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:45,324 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:47,810 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:16:50,342 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:41,656 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:44,246 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:46,725 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:49,247 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:51,723 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:54,252 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:56,739 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:17:59,231 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:01,734 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:04,245 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:06,732 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:09,229 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:11,721 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:14,236 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:16,751 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:19,261 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:21,725 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:24,239 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:26,729 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:29,240 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:31,736 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:34,242 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:36,722 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:39,224 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:18:41,750 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:02,363 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:05,132 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:07,114 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:10,122 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:12,127 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:15,124 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:17,145 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:20,125 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:22,133 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:25,138 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:27,125 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:30,132 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:32,119 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:35,124 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:37,124 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:40,123 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:42,129 [INFO] backend.database: SQLite connection initialized with WAL mode.
+2026-06-18 20:19:45,114 [INFO] backend.database: SQLite connection initialized with WAL mode.
