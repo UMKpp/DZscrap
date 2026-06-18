@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputApiUrl = document.getElementById("input-api-url");
   const btnSaveSettings = document.getElementById("btn-save-settings");
 
+  const scrapingFormCard = document.getElementById("scraping-form-card");
+  const jobsSection = document.getElementById("jobs-section");
   const inputQuery = document.getElementById("input-query");
   const selectEngine = document.getElementById("select-engine");
   const inputLimit = document.getElementById("input-limit");
@@ -43,7 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle settings
   btnSettings.addEventListener("click", () => {
-    settingsPane.classList.toggle("hidden");
+    const isSettingsHidden = settingsPane.classList.toggle("hidden");
+    if (isSettingsHidden) {
+      scrapingFormCard.classList.remove("hidden");
+      jobsSection.classList.remove("hidden");
+    } else {
+      scrapingFormCard.classList.add("hidden");
+      jobsSection.classList.add("hidden");
+    }
   });
 
   // Save Settings
@@ -54,14 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     API_URL = url;
     
+    const hideSettings = () => {
+      settingsPane.classList.add("hidden");
+      scrapingFormCard.classList.remove("hidden");
+      jobsSection.classList.remove("hidden");
+      initConnection();
+    };
+
     if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
       chrome.storage.local.set({ apiUrl: API_URL }, () => {
-        settingsPane.classList.add("hidden");
-        initConnection();
+        hideSettings();
       });
     } else {
-      settingsPane.classList.add("hidden");
-      initConnection();
+      hideSettings();
     }
   });
 
@@ -97,10 +111,10 @@ document.addEventListener("DOMContentLoaded", () => {
   btnStartScrape.addEventListener("click", async () => {
     const query = inputQuery.value.trim();
     const engine = selectEngine.value;
-    const limit = parseInt(inputLimit.value, 10);
+    const limit = parseInt(inputLimit.value, 10) || 100;
 
     if (!query) {
-      alert("Please enter a keyword or URL.");
+      alert("Please enter a keyword.");
       return;
     }
 
@@ -127,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert(`Network Error: ${e.message}`);
     } finally {
       btnStartScrape.disabled = false;
-      btnStartScrape.querySelector(".btn-text").innerText = "Queue Scraping Job";
+      btnStartScrape.querySelector(".btn-text").innerText = "SCRAPE NOW";
     }
   });
 
@@ -166,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (jobs.length === 0) {
       jobsList.innerHTML = `
         <div class="empty-state">
-          <p>No active jobs found. Start a new scrape above!</p>
+          No active jobs found. Start a new scrape above!
         </div>`;
       return;
     }
@@ -179,34 +193,39 @@ document.addEventListener("DOMContentLoaded", () => {
       const percent = Math.min(Math.round((job.total_downloaded / job.limit) * 100), 100) || 0;
       
       let badgeClass = "pending";
-      let statusIcon = "⏳";
+      let statusHtml = "pending";
       if (job.status === "running") {
         badgeClass = "running";
-        statusIcon = "⚙️";
+        statusHtml = `<img src="icons/settings.png" class="status-icon status-icon-spin" alt="running"> running`;
       } else if (job.status === "completed") {
         badgeClass = "completed";
-        statusIcon = "✅";
+        statusHtml = `<img src="icons/completed.png" class="status-icon" alt="done"> done`;
       } else if (job.status === "failed") {
         badgeClass = "failed";
-        statusIcon = "❌";
+        statusHtml = `<img src="icons/failed.png" class="status-icon" alt="failed"> failed`;
       }
 
       jobCard.innerHTML = `
-        <div class="job-meta">
-          <span class="job-query" title="${escapeHtml(job.query)}">${escapeHtml(job.query)}</span>
-          <span class="job-engine-tag">${job.engine}</span>
-        </div>
-        <div class="job-status-row">
-          <span class="job-stats">${job.total_downloaded} / ${job.limit} imgs (${percent}%)</span>
-          <span class="status-badge ${badgeClass}">${statusIcon} ${job.status}</span>
+        <div class="job-top-row">
+          <span class="job-keyword-badge" title="${escapeHtml(job.query)}">${escapeHtml(job.query)}</span>
+          <span class="job-status-badge ${badgeClass}">${statusHtml}</span>
         </div>
         <div class="progress-container">
-          <div class="progress-bar ${job.status}" style="width: ${percent}%"></div>
+          <div class="progress-bar" style="width: ${percent}%"></div>
+        </div>
+        <div class="progress-labels">
+          <span class="progress-stats">${job.total_downloaded}/${job.limit} img</span>
+          <span class="progress-percent">${percent}%</span>
         </div>
         ${job.error_message ? `<div class="job-error-msg">${escapeHtml(job.error_message)}</div>` : ""}
-        <div class="job-actions" data-id="${job.id}">
-          ${job.status === "completed" && job.total_downloaded > 0 ? `<a href="${API_URL}/api/v1/jobs/${job.id}/export" class="action-btn export-btn" download>📥 Download Dataset</a>` : ""}
-          <button class="action-btn delete-btn">🗑️ Delete</button>
+        <div class="job-bottom-row" data-id="${job.id}">
+          ${job.status === "completed" && job.total_downloaded > 0 ? 
+            `<a href="${API_URL}/api/v1/jobs/${job.id}/export" class="download-zip-btn" download>Download zip</a>` : 
+            `<span></span>`
+          }
+          <button class="delete-btn" title="Delete job">
+            <img src="icons/delete_zip_file.png" alt="Delete">
+          </button>
         </div>
       `;
 
