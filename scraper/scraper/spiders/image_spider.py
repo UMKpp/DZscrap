@@ -88,6 +88,19 @@ class ImageSpider(scrapy.Spider):
             
             # Wait for initial page rendering
             await page.wait_for_timeout(2000)
+
+            # Handle Google GDPR/cookie consent redirect if present
+            if self.engine == "google":
+                try:
+                    for selector in ["#L2AGLb", "button[aria-label='Accept all']", "button:has-text('Accept all')", "button:has-text('I agree')"]:
+                        btn = await page.query_selector(selector)
+                        if btn and await btn.is_visible():
+                            logger.info("Clicking Google cookie consent button...")
+                            await btn.click()
+                            await page.wait_for_timeout(1500)
+                            break
+                except Exception as consent_err:
+                    logger.debug(f"No Google consent page handled: {consent_err}")
             
             scroll_attempts = 0
             # Increase scrolls logic. Typically 40-80 images per scroll. To get ~1000 images, we need up to 25 scrolls.
@@ -187,8 +200,10 @@ class ImageSpider(scrapy.Spider):
         elif self.engine == "google":
             # 1. Try to extract from script tags (modern dynamic UI/layout)
             for script in response.css("script::text").getall():
+                # Clean up backslashes to resolve escaped quotes (\") and slashes (\/)
+                script_clean = script.replace("\\", "")
                 # Find all quoted URLs in the script
-                for u in re.findall(r'"(https?://[^"]+)"', script.replace(r"\/", "/")):
+                for u in re.findall(r'"(https?://[^"]+)"', script_clean):
                     if not any(x in u for x in ["google.", "gstatic.com", "schema.org", "doubleclick.net", "facebook.com", "twitter.com", "recaptcha"]):
                         # Check if it has a common image extension or looks like an image URL
                         low_u = u.lower()
