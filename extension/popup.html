@@ -13,11 +13,10 @@
   <div class="app-container">
     <!-- Header -->
     <header>
-      <div class="logo-area">
-        <div class="logo-glow"></div>
-        <h1>Image Scraper <span class="logo-accent">Pro</span></h1>
-      </div>
-      <button id="btn-settings" class="icon-button" title="Configure API Server">⚙️</button>
+      <h1 class="app-title">IMAGE SCRAPER PRO</h1>
+      <button id="btn-settings" class="settings-btn" title="Configure API Server">
+        <img src="icons/settings.png" alt="Settings" id="img-settings">
+      </button>
     </header>
 
     <!-- Settings Pane (Collapsible) -->
@@ -27,50 +26,52 @@
         <label for="input-api-url">FastAPI Server URL</label>
         <input type="text" id="input-api-url" value="http://localhost:8000" placeholder="http://localhost:8000">
       </div>
-      <button id="btn-save-settings" class="btn btn-secondary">Save Configuration</button>
+      <button id="btn-save-settings" class="btn btn-save">Save Configuration</button>
     </div>
 
-    <!-- Main Content Tabs -->
+    <!-- Main Content -->
     <main>
       <!-- Form Section -->
-      <section class="scraping-form-card">
-        <div class="form-title">Start Scrape Job</div>
+      <section id="scraping-form-card" class="scraping-form-card">
+        <h2>Start Scraping</h2>
         
         <div class="input-group">
-          <label for="input-query">Keyword or URL</label>
-          <input type="text" id="input-query" placeholder="e.g. cute golden retriever puppies" required>
+          <label for="input-query">What images are you looking for?</label>
+          <input type="text" id="input-query" placeholder="e.g., tomato leaf blight" required>
         </div>
 
         <div class="form-row">
           <div class="input-group half">
-            <label for="select-engine">Source Engine</label>
-            <select id="select-engine" disabled>
+            <label for="select-engine">Source</label>
+            <select id="select-engine">
               <option value="bing" selected>Bing Images</option>
+              <option value="google">Google Images</option>
             </select>
           </div>
 
           <div class="input-group half">
-            <label for="input-limit">Limit (max 2000)</label>
-            <input type="number" id="input-limit" value="100" min="10" max="2000">
+            <label for="input-limit">Limit</label>
+            <input type="number" id="input-limit" min="10" max="2000" placeholder="max:2000">
           </div>
         </div>
 
-        <button id="btn-start-scrape" class="btn btn-primary">
-          <span class="btn-text">Queue Scraping Job</span>
-          <span class="btn-glow"></span>
+        <button id="btn-start-scrape" class="btn btn-start btn-scrape">
+          <span class="btn-text">SCRAPE NOW</span>
         </button>
       </section>
 
       <!-- Active & Historical Jobs Section -->
-      <section class="jobs-section">
+      <section id="jobs-section" class="jobs-section">
         <div class="section-header">
-          <h2>Active Jobs</h2>
-          <button id="btn-refresh-jobs" class="text-button">🔄 Refresh</button>
+          <h2>My Datasets</h2>
+          <button id="btn-refresh-jobs" class="refresh-btn" title="Refresh datasets">
+            <img src="icons/refresh.png" alt="Refresh">
+          </button>
         </div>
 
         <div id="jobs-list" class="jobs-list">
           <div class="empty-state">
-            <p>No active jobs found. Start a new scrape above!</p>
+            No active jobs found. Start a new scrape above!
           </div>
         </div>
       </section>
@@ -82,7 +83,7 @@
         <span id="connection-dot" class="dot offline"></span>
         <span id="connection-text">Connecting to Backend...</span>
       </div>
-      <span class="version">v1.0.0</span>
+      <span class="version">v 1.0.1</span>
     </footer>
   </div>
   <script src="popup.js"></script>
