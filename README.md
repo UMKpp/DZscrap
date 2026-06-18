@@ -49,7 +49,7 @@ Chrome Extension (Serverless)
   - **Aspect Ratio Filter**: Discards banners, headers, dividers, and tall stripes (requires `0.45 <= width/height <= 2.2`).
   - **Keyword Exclusions**: Automatically excludes site logos, web headers, footer graphics, LinkedIn profile pics, Alibaba ads, and SlideShare presentation slides.
 - **Local ZIP Exporter**: Compiles image files locally in memory alongside CSV and JSON metadata containing source URLs and size statistics using `JSZip`.
-- **Storage Persistence**: Saves scraping history and jobs locally using `chrome.storage.local`. Includes a utility to clear storage.
+- **Storage & IndexedDB Persistence**: Saves scraping history metadata locally using `chrome.storage.local` and stores compiled ZIP files in the browser's `IndexedDB` to bypass JSON serialization limits. Includes a settings pane utility to clear all history and ZIP database tables.
 - **Compact UI**: Sleek, off-white high-contrast theme layout with black borders, progress bars, and dataset actions.
 
 ---

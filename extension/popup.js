@@ -1,19 +1,15 @@
 /**
- * Image Scraper Pro Client - popup.js
- * Coordinates UI events, storage loads, backend state checks, 
- * job queueing, and polling for the companion local scraper server.
- *
- * Safe & secure: strictly local traffic, zero tracking or data collection.
+ * DZscraper Client - popup.js
+ * Coordinates UI events, storage loads, job requests, and polling
+ * entirely client-side using Chrome Storage and Service Worker.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  // Config state
-  let API_URL = "https://your-app-name.onrender.com";
   let activePollInterval = null;
 
   // DOM Elements
   const btnSettings = document.getElementById("btn-settings");
   const settingsPane = document.getElementById("settings-pane");
-  const inputApiUrl = document.getElementById("input-api-url");
+  const btnClearHistory = document.getElementById("btn-clear-history");
   const btnSaveSettings = document.getElementById("btn-save-settings");
 
   const scrapingFormCard = document.getElementById("scraping-form-card");
@@ -29,19 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const connectionDot = document.getElementById("connection-dot");
   const connectionText = document.getElementById("connection-text");
 
-  // Load API settings from storage on startup
-  if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
-    chrome.storage.local.get(["apiUrl"], (result) => {
-      if (result.apiUrl) {
-        API_URL = result.apiUrl;
-        inputApiUrl.value = API_URL;
-      }
-      initConnection();
-    });
-  } else {
-    // Fallback if running outside of extension context for debugging
-    initConnection();
-  }
+  // Initial setup: offline indicator turns green for serverless mode
+  connectionDot.className = "dot online";
+  connectionDot.style.backgroundColor = "#22c55e";
+  connectionText.innerText = "Serverless Mode";
+  btnStartScrape.disabled = false;
+
+  // Load jobs on popup open
+  fetchJobs();
 
   // Toggle settings
   btnSettings.addEventListener("click", () => {
@@ -55,62 +46,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Save Settings
+  // Save/Close Settings
   btnSaveSettings.addEventListener("click", () => {
-    let url = inputApiUrl.value.trim();
-    if (url.endsWith("/")) {
-      url = url.slice(0, -1);
-    }
-    API_URL = url;
-    
-    const hideSettings = () => {
-      settingsPane.classList.add("hidden");
-      scrapingFormCard.classList.remove("hidden");
-      jobsSection.classList.remove("hidden");
-      initConnection();
-    };
+    settingsPane.classList.add("hidden");
+    scrapingFormCard.classList.remove("hidden");
+    jobsSection.classList.remove("hidden");
+  });
 
-    if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
-      chrome.storage.local.set({ apiUrl: API_URL }, () => {
-        hideSettings();
+  // Clear Job History
+  btnClearHistory.addEventListener("click", () => {
+    if (confirm("Are you sure you want to clear all jobs and downloaded zip files?")) {
+      chrome.storage.local.get("jobs", (data) => {
+        const jobs = data.jobs || [];
+        const keysToRemove = jobs.map(j => `zip_${j.id}`);
+        keysToRemove.push("jobs");
+        keysToRemove.push("active_job");
+        
+        chrome.storage.local.remove(keysToRemove, async () => {
+          try {
+            await DZDB.clearAllZips();
+          } catch (e) {
+            console.error("Failed to clear IndexedDB:", e);
+          }
+          fetchJobs();
+          alert("All job history cleared successfully.");
+        });
       });
-    } else {
-      hideSettings();
     }
   });
 
-  // Initial connection check
-  async function initConnection() {
-    updateConnectionStatus(false, "Connecting to Backend...");
-    try {
-      const response = await fetch(`${API_URL}/health`);
-      if (response.ok) {
-        updateConnectionStatus(true, "Backend Connected");
-        fetchJobs();
-      } else {
-        updateConnectionStatus(false, "Backend Server Error");
-      }
-    } catch (e) {
-      updateConnectionStatus(false, "Backend Offline");
-    }
-  }
-
-  function updateConnectionStatus(isOnline, text) {
-    if (isOnline) {
-      connectionDot.className = "dot online";
-      connectionText.innerText = text;
-      btnStartScrape.disabled = false;
-    } else {
-      connectionDot.className = "dot offline";
-      connectionText.innerText = text;
-      btnStartScrape.disabled = true;
-    }
-  }
-
   // Create Scraping Job
-  btnStartScrape.addEventListener("click", async () => {
+  btnStartScrape.addEventListener("click", () => {
     const query = inputQuery.value.trim();
-    const engine = selectEngine.value;
     const limit = parseInt(inputLimit.value, 10) || 100;
 
     if (!query) {
@@ -121,47 +88,35 @@ document.addEventListener("DOMContentLoaded", () => {
     btnStartScrape.disabled = true;
     btnStartScrape.querySelector(".btn-text").innerText = "Queueing...";
 
-    try {
-      const response = await fetch(`${API_URL}/api/v1/scrape`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ query, limit, engine })
-      });
-
-      if (response.ok) {
+    // Send start scrape message to background service worker
+    chrome.runtime.sendMessage({ action: "start_scrape", query, limit }, (response) => {
+      btnStartScrape.disabled = false;
+      btnStartScrape.querySelector(".btn-text").innerText = "SCRAPE NOW";
+      
+      if (response && response.status === "success") {
         inputQuery.value = "";
         fetchJobs();
       } else {
-        const err = await response.json();
-        alert(`Error: ${err.detail || "Failed to start scraping job"}`);
+        alert("Failed to queue scraping task in the extension background.");
       }
-    } catch (e) {
-      alert(`Network Error: ${e.message}`);
-    } finally {
-      btnStartScrape.disabled = false;
-      btnStartScrape.querySelector(".btn-text").innerText = "SCRAPE NOW";
-    }
+    });
   });
 
   // Refresh Jobs Trigger
   btnRefreshJobs.addEventListener("click", fetchJobs);
 
-  // Fetch Jobs List
-  async function fetchJobs() {
-    try {
-      const response = await fetch(`${API_URL}/api/v1/jobs`);
-      if (!response.ok) throw new Error("Failed to fetch jobs");
-      const jobs = await response.json();
+  // Fetch Jobs List from chrome.storage.local
+  function fetchJobs() {
+    chrome.storage.local.get("jobs", (data) => {
+      const jobs = data.jobs || [];
       renderJobs(jobs);
       
-      // Determine if we need to poll (if any job is running or pending)
-      const hasActiveJobs = jobs.some(j => j.status === "running" || j.status === "pending");
+      // Determine if we need to poll (if any job is running or pending or downloading)
+      const hasActiveJobs = jobs.some(j => j.status === "running" || j.status === "pending" || j.status === "downloading");
       
       if (hasActiveJobs) {
         if (!activePollInterval) {
-          activePollInterval = setInterval(fetchJobs, 2500); // Poll every 2.5 seconds
+          activePollInterval = setInterval(fetchJobs, 1000); // Poll every 1 second for instant progress bar update
         }
       } else {
         if (activePollInterval) {
@@ -169,10 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
           activePollInterval = null;
         }
       }
-    } catch (e) {
-      console.error(e);
-      jobsList.innerHTML = `<div class="empty-state">Error listing jobs. Ensure API is running.</div>`;
-    }
+    });
   }
 
   // Render Jobs to UI
@@ -194,9 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
       
       let badgeClass = "pending";
       let statusHtml = "pending";
+      
       if (job.status === "running") {
         badgeClass = "running";
-        statusHtml = `<img src="icons/settings.png" class="status-icon status-icon-spin" alt="running"> running`;
+        statusHtml = `<img src="icons/settings.png" class="status-icon status-icon-spin" alt="running"> running (${job.total_scraped || 0})`;
+      } else if (job.status === "downloading") {
+        badgeClass = "running";
+        statusHtml = `<img src="icons/settings.png" class="status-icon status-icon-spin" alt="downloading"> downloading`;
       } else if (job.status === "completed") {
         badgeClass = "completed";
         statusHtml = `<img src="icons/completed.png" class="status-icon" alt="done"> done`;
@@ -204,6 +160,10 @@ document.addEventListener("DOMContentLoaded", () => {
         badgeClass = "failed";
         statusHtml = `<img src="icons/failed.png" class="status-icon" alt="failed"> failed`;
       }
+
+      // Generate clean filename
+      const cleanQuery = job.query.replace(/[^a-z0-9]/gi, "_").toLowerCase();
+      const filename = `dataset_${cleanQuery}_${job.id.substr(-4)}.zip`;
 
       jobCard.innerHTML = `
         <div class="job-top-row">
@@ -220,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ${job.error_message ? `<div class="job-error-msg">${escapeHtml(job.error_message)}</div>` : ""}
         <div class="job-bottom-row" data-id="${job.id}">
           ${job.status === "completed" && job.total_downloaded > 0 ? 
-            `<a href="${API_URL}/api/v1/jobs/${job.id}/export" class="download-zip-btn" download>Download zip</a>` : 
+            `<a href="download.html?job_id=${job.id}&filename=${encodeURIComponent(filename)}" target="_blank" class="download-zip-btn">Download zip</a>` : 
             `<span></span>`
           }
           <button class="delete-btn" title="Delete job">
@@ -230,9 +190,9 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
 
       // Bind delete button event
-      jobCard.querySelector(".delete-btn").addEventListener("click", async () => {
+      jobCard.querySelector(".delete-btn").addEventListener("click", () => {
         if (confirm("Are you sure you want to delete this job and all its scraped images?")) {
-          await deleteJob(job.id);
+          deleteJob(job.id);
         }
       });
 
@@ -240,20 +200,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Delete Job API Call
-  async function deleteJob(jobId) {
-    try {
-      const response = await fetch(`${API_URL}/api/v1/jobs/${jobId}`, {
-        method: "DELETE"
+  // Delete Job from Local Storage
+  function deleteJob(jobId) {
+    chrome.storage.local.get("jobs", (data) => {
+      let jobs = (data.jobs || []).map(j => DZDB.sanitizeJob(j)).filter(Boolean);
+      jobs = jobs.filter(j => j.id !== jobId);
+      
+      // Delete zip binary from storage
+      chrome.storage.local.remove([`zip_${jobId}`, `zip_data_${jobId}`], async () => {
+        try {
+          await DZDB.deleteZip(jobId);
+        } catch (e) {
+          console.error("Failed to delete zip from IndexedDB:", e);
+        }
+        chrome.storage.local.set({ jobs }, () => {
+          fetchJobs();
+        });
       });
-      if (response.ok) {
-        fetchJobs();
-      } else {
-        alert("Failed to delete job");
-      }
-    } catch (e) {
-      alert(`Network Error: ${e.message}`);
-    }
+    });
   }
 
   // HTML escape helper
@@ -267,3 +231,4 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/'/g, "&#039;");
   }
 });
+
