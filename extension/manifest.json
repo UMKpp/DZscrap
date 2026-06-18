@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Image Scraper Pro - Dataset Builder",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Local image scraping tool that builds ML-ready datasets using your own backend server.",
   "permissions": [
     "storage"
