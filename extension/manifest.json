@@ -1,18 +1,21 @@
 {
   "manifest_version": 3,
-  "name": "Image Scraper Pro - Dataset Builder",
+  "name": "DZscraper - Dataset Builder",
   "version": "2.0.0",
-  "description": "Local image scraping tool that builds ML-ready datasets using your own backend server.",
+  "description": "Serverless image scraping tool that builds ML-ready datasets locally.",
   "permissions": [
-    "storage"
+    "storage",
+    "unlimitedStorage",
+    "scripting",
+    "downloads",
+    "tabs"
   ],
   "host_permissions": [
-    "https://*.onrender.com/*",
-    "http://localhost/*",
-    "http://127.0.0.1/*",
-    "http://localhost:8000/*",
-    "http://127.0.0.1:8000/*"
+    "<all_urls>"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

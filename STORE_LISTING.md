@@ -5,9 +5,9 @@ This document contains the text and configuration details required for submittin
 ---
 
 ### 1. General Info
-* **Extension Name:** Image Scraper Pro Client
-* **Version:** 1.0.0
-* **Short Description (max 150 chars):** Connects to your local Image Scraper Pro server to queue scrape jobs and download datasets.
+* **Extension Name:** DZscraper - Dataset Builder
+* **Version:** 2.0.0
+* **Short Description (max 150 chars):** Serverless image scraper that extracts, filters, and downloads Bing Image datasets directly in your browser.
 * **Category:** Productivity / Developer Tools
 * **Language:** English (United States)
 
@@ -15,34 +15,46 @@ This document contains the text and configuration details required for submittin
 
 ### 2. Full Description (max 16,000 chars)
 ```markdown
-Image Scraper Pro Client is the official browser companion for your self-hosted Image Scraper Pro distributed scraping system. Designed for developers, data scientists, and ML engineers, this extension provides a visual dashboard to create and download image datasets directly from your browser.
+DZscraper is a serverless image scraping tool designed for developers, data scientists, and ML engineers. It allows you to build machine-learning-ready image datasets directly from your browser, completely offline with zero server dependencies.
 
-**PREREQUISITE:**
-This extension requires you to have the Image Scraper Pro backend server running on your machine (via Docker Compose or local python server). It will not function without the local API connection.
+No need to configure databases, Celery queues, Redis, or FastAPI servers. DZscraper does all the work directly in your browser.
 
 **KEY FEATURES:**
-* **One-Click Queueing:** Start image scraping tasks on your local server directly from the extension panel.
-* **Real-Time Progress Tracking:** Monitor active jobs, view exact image download metrics, and track completion progress bars in real-time.
-* **Instant ZIP Downloads:** Export complete, cleaned, and machine-learning-ready ZIP datasets (containing raw files + metadata JSON) directly from your active jobs dashboard.
-* **No Background Resources:** The extension has zero background workers, running only when you open the popup to minimize browser resource consumption.
-* **Local & Private:** Zero third-party telemetry, tracking, or cloud uploads. All network requests go straight to your local server.
+* **Instant Scraping:** Simply enter a keyword and the number of images, then click "SCRAPE NOW" to start.
+* **Automatic Tab Scrolling:** The extension opens Bing Images in the background, scrolls through results, handles pagination, and extracts image source URLs automatically.
+* **Content Filtering Heuristics:** Automatically filters out small images (< 250px), banners/headers (aspect ratio checks), and site decorations/avatars/logos using integrated URL keyword checks and image dimension validation.
+* **Local ZIP Generation:** Packages all successfully downloaded images, metadata in CSV format, and metadata in JSON format into a clean, structured ZIP file locally in your browser using JSZip.
+* **Zero Server Overhead:** Zero third-party telemetry, tracking, or external API dependencies. All network fetches go directly from your browser to Bing and the image hosts.
+* **Job History Persistence:** Keeps track of your active and historical datasets using the local browser storage.
 
 **HOW TO USE:**
-1. Startup your local Image Scraper Pro Docker Compose environment.
-2. Click the gear icon in the extension to set your local FastAPI backend URL (default: http://localhost:8000).
-3. Enter your scraping keyword and target limit.
-4. Click "Queue Scraping Job" to dispatch the crawl to your local worker.
-5. Download your processed dataset ZIP as soon as the status indicates completed.
+1. Load the extension in Google Chrome.
+2. Enter your target keyword (e.g., "tomato leaf blight").
+3. Set your desired image count limit.
+4. Click "SCRAPE NOW".
+5. Wait for the progress bar to complete and check your browser's download folder for the generated dataset ZIP file.
 ```
 
 ---
 
 ### 3. Permissions Justifications (Required during CWS submission)
 
-#### Permission: `storage`
-* **Purpose:** Stores the backend API Server URL locally.
-* **Justification:** Allows the extension to remember the user's custom server URL (e.g., `http://localhost:8000`) across sessions so it doesn't need to be re-entered each time the popup is opened.
+#### Permission: `storage` & `unlimitedStorage`
+* **Purpose:** Stores the local job logs and historical progress.
+* **Justification:** Allows the extension to persist the jobs dashboard list and store the generated ZIP ArrayBuffers temporarily in browser memory across sessions.
 
-#### Permission: `host_permissions` (`https://*.onrender.com/*`, `http://localhost/*`, `http://127.0.0.1/*`, `http://localhost:8000/*`, `http://127.0.0.1:8000/*`)
-* **Purpose:** Allows communication with backend APIs (either deployed or local).
-* **Justification:** The extension must make HTTP requests (`GET`/`POST`/`DELETE`) to check backend server health, fetch job logs, and start scraping tasks. Since the backend server can be hosted on Render (`*.onrender.com`) or run locally on the host machine (`localhost` or `127.0.0.1`), these specific host patterns are required for CORS bypass and to securely transmit commands to the user's active backend.
+#### Permission: `scripting`
+* **Purpose:** Runs content script injection.
+* **Justification:** The extension must inject the scrolling and extraction script (`scraper.js`) into the background Bing Image search tabs to collect image URLs.
+
+#### Permission: `tabs`
+* **Purpose:** Spawns and manages tabs.
+* **Justification:** Required to load the search page in a background tab and close it automatically once scraping completes.
+
+#### Permission: `downloads`
+* **Purpose:** Triggers browser file download manager.
+* **Justification:** Required to save the locally generated ZIP files onto the user's hard drive automatically.
+
+#### Host Permissions (`<all_urls>`)
+* **Purpose:** Permits cross-origin image download requests.
+* **Justification:** Because Bing Image search results point to arbitrary external domains (e.g., Dreamstime, Wikipedia, seed websites), the extension must make `fetch()` requests to these diverse domains to download the raw image bytes for ZIP compilation.
