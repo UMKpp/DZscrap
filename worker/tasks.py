@@ -60,25 +60,14 @@ def scrape_images_task(self, job_id: str, query: str, limit: int, engine: str):
             cmd,
             cwd=scraper_cwd,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stderr=subprocess.STDOUT,  # Merge stderr into stdout to prevent deadlocks
             text=True,
             env=env
         )
         
-        # Stream logs in real-time
-        while True:
-            stdout_line = process.stdout.readline()
-            stderr_line = process.stderr.readline()
-            
-            if stdout_line:
-                # Log scraper stdout
-                logger.debug(f"[Scraper STDOUT] {stdout_line.strip()}")
-            if stderr_line:
-                # Log scraper stderr
-                logger.info(f"[Scraper LOG] {stderr_line.strip()}")
-                
-            if stdout_line == "" and stderr_line == "" and process.poll() is not None:
-                break
+        # Stream logs in real-time in a deadlock-free manner
+        for line in iter(process.stdout.readline, ""):
+            logger.info(f"[Scraper LOG] {line.strip()}")
                 
         return_code = process.wait()
         logger.info(f"Scraper subprocess finished with return code {return_code}")
