@@ -99,24 +99,24 @@ class ImageSpider(scrapy.Spider):
                 # Scroll to the bottom of the page
                 await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
                 
-                # Wait for new elements to load
-                await page.wait_for_timeout(1500)
+                # Wait for new elements to load (decreased wait time to speed up scraping)
+                await page.wait_for_timeout(800)
                 
-                # Attempt to click any "Show more results" button if it appears
+                # Attempt to click any "Show more results" button if it appears (engine-specific queries to save time)
                 try:
-                    # Potential button selectors for Google and Bing
-                    for selector in [
-                        "input[value='Show more results']", # Google Images button
-                        ".LZ4Z5e",                          # Google Images loading div/button
-                        "#smb",                             # Old Google Show More button
-                        ".btn_seemore",                     # Bing See More button
-                        "a.mye"                             # Bing pagination
-                    ]:
+                    selectors = []
+                    if self.engine == "google":
+                        selectors = ["input[value='Show more results']", ".LZ4Z5e", "#smb"]
+                    elif self.engine == "bing":
+                        selectors = [".btn_seemore", "a.mye"]
+                    
+                    for selector in selectors:
                         btn = await page.query_selector(selector)
                         if btn and await btn.is_visible():
                             logger.info(f"Clicking load-more button: {selector}")
                             await btn.click()
-                            await page.wait_for_timeout(1500)
+                            await page.wait_for_timeout(1000)
+                            break
                 except Exception as click_err:
                     logger.debug(f"No show-more button clicked in this scroll: {click_err}")
                 
