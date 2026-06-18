@@ -1,214 +1,109 @@
-# Image Scraper Pro – Chrome Extension + Distributed Image Scraping System
+# DZscraper – Serverless Bing Image Scraper
 
-Image Scraper Pro is a production-ready, distributed, scalable image scraping system designed to extract and download 1000+ images from Bing, Google, or generic URLs for machine learning dataset creation. 
+DZscraper is a serverless, production-ready Chrome Extension (Manifest V3) designed to build machine learning-ready datasets by extracting, filtering, and downloading images directly from Bing Images.
 
-The system leverages a FastAPI backend, Celery workers running Scrapy + Playwright for dynamic scroll scraping, and a modern Manifest V3 Chrome Extension dashboard.
+Since the extension runs entirely client-side, it requires **no backend servers, APIs, databases, or container services**. All scraping, content filtering, and ZIP archive packaging happen locally inside your browser.
 
 ---
 
 ## Architecture Overview
 
 ```
-Chrome Extension (Frontend)
-    │   (Sends Search Query & Limit via REST API)
-    ▼
-FastAPI Backend (localhost:8000) ────► DB State (SQLite / WAL Mode)
-    │   (Creates job and dispatches task)
-    ▼
-Redis Broker (Port 6379)
-    │   (Task picked up by worker)
-    ▼
-Celery Worker ────► Spawns Scrapy + Playwright Subprocess
-                        │   (Dynamic scroll page & extracts high-res URLs)
-                        ├──► Downloads images asynchronously
-                        ├──► Computes SHA256 hashes to deduplicate globally & locally
-                        └──► Writes images to storage/ and updates DB progress
+Chrome Extension (Serverless)
+    │
+    ├── Popup UI (Keyword & Limit Entry)
+    │     │
+    │     ▼ (Sends runtime message)
+    │
+    ├── Background Service Worker (background.js)
+    │     │
+    │     ├── Spawns Bing Images tab in background (active: false)
+    │     ├── Injects scraper.js into the tab
+    │     │
+    │     ▼
+    │
+    ├── Scraper Script (scraper.js)
+    │     │
+    │     ├── Scrolls page & clicks Bing "Load More" (.btn_seemore)
+    │     └── Extracts unique image URLs from anchors (a.iusc)
+    │
+    ├── Image Fetcher & Filter (Fetch API + createImageBitmap)
+    │     │
+    │     ├── Downloads images in parallel
+    │     ├── Filters by size (>= 250px), aspect ratio (0.45 to 2.2), & URL keyword
+    │     └── Compiles ZIP archive locally in memory using JSZip
+    │
+    └── Download Handler (download.html + chrome.downloads)
+          │
+          └── Prompts user to save the completed dataset.zip locally
 ```
 
 ---
 
 ## Features
 
-- **Distributed Scraping Engine**: Celery + Redis coordinates jobs, keeping backend responsive.
-- **Dynamic Scrolling**: Scrapy + Playwright scrolls dynamically and handles "Load More" pagination to scrape 1000+ images.
-- **Clean ML-Ready Datasets**:
-  - Global and job-level **SHA256 duplicate removal** (saves duplicate file downloads).
-  - ZIP dataset exporter generating metadata in both **JSON** and **CSV** alongside clean images.
-- **Chrome Extension Frontend**: Glassmorphism dashboard with job listing, real-time progress polling, and direct ZIP exports.
+- **100% Serverless**: No FastAPI, SQLite, Redis, Celery, or Docker required. Runs entirely on your browser using standard Extension APIs.
+- **Dynamic Scroll & Scrape**: Injected script automatically scrolls Bing Images, handles pagination, clicks "Show More" buttons, and extracts high-resolution URLs.
+- **ML-Ready Content Filtering Heuristics**:
+  - **Resolution Filter**: Automatically drops small images, icons, and social avatars (requires `width >= 250px` and `height >= 250px`).
+  - **Aspect Ratio Filter**: Discards banners, headers, dividers, and tall stripes (requires `0.45 <= width/height <= 2.2`).
+  - **Keyword Exclusions**: Automatically excludes site logos, web headers, footer graphics, LinkedIn profile pics, Alibaba ads, and SlideShare presentation slides.
+- **Local ZIP Exporter**: Compiles image files locally in memory alongside CSV and JSON metadata containing source URLs and size statistics using `JSZip`.
+- **Storage Persistence**: Saves scraping history and jobs locally using `chrome.storage.local`. Includes a utility to clear storage.
+- **Compact UI**: Sleek, off-white high-contrast theme layout with black borders, progress bars, and dataset actions.
 
 ---
 
-## 🛠️ Setup & Running via Docker (Recommended)
+## 🧩 Installing the Extension
 
-The easiest way to run the entire stack (Redis, Backend, and Celery + Playwright Worker) is using Docker Compose.
-
-### 1. Prerequisites
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-
-### 2. Start the Stack
-Run the following command in the project root:
-```bash
-docker-compose up --build
-```
-This automatically compiles the backend, pulls the Redis container, and builds the Celery worker container (which installs the required Playwright Chromium browsers and Linux dependencies).
-
-- **FastAPI API Server**: http://localhost:8000
-- **API Health Check**: http://localhost:8000/health
-- **Static Storage File Server**: http://localhost:8000/storage
-
----
-
-## 🐍 Setup & Running Locally (Python)
-
-If you prefer to run services manually on your host machine:
-
-### 1. Start Redis
-Ensure you have Redis running locally.
-- **Mac (Homebrew)**: `brew services start redis`
-- **Ubuntu**: `sudo systemctl start redis-server`
-- **Windows**: Run Redis via WSL or download Redis MSI.
-
-### 2. Configure Virtual Environment & Install Dependencies
-```bash
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install requirements
-pip install -r requirements.txt
-
-# Install Playwright Chromium browser and its libraries
-playwright install chromium
-```
-
-### 3. Run FastAPI Backend
-```bash
-# From project root
-uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-### 4. Run Celery Worker
-In a new terminal window (with virtual environment activated):
-```bash
-# From project root
-celery -A worker.celery_app.celery_app worker --loglevel=info
-```
-
----
-
-## 🧩 Installing the Chrome Extension
-
-1. Open Google Chrome.
-2. Navigate to `chrome://extensions/`.
-3. Enable **Developer mode** (toggle in the top-right corner).
-4. Click **Load unpacked** (top-left corner).
-5. Select the `extension/` folder inside this project directory.
-6. Click the extension icon in your browser to open the Glassmorphism dashboard!
-
-*Note: By default, the extension points to `http://localhost:8000`. You can configure this by clicking the **Settings Gear (⚙️)** in the top right of the popup.*
+1. Clone or download this repository.
+2. Open Google Chrome.
+3. Navigate to `chrome://extensions/`.
+4. Enable **Developer mode** (toggle in the top-right corner).
+5. Click **Load unpacked** (top-left corner).
+6. Select the `extension/` folder inside this project directory.
+7. Open the extension from your browser toolbar!
 
 ---
 
 ## 📦 Packaging for Chrome Web Store
 
-The project includes a utility script `package_extension.py` to prepare the extension for publication. This script uses the `Pillow` library to:
-1. Take the raw logo (`extension/icons/logo_raw.png`) and generate the required CWS sizes (`16x16`, `48x48`, and `128x128` PNGs).
-2. Zip the extension files into a publication-ready bundle (`image_scraper_pro_extension.zip`).
+The project includes a lightweight utility script `package.py` to bundle the extension files for CWS publication.
 
-To run it:
+To pack the extension:
 ```bash
-# Install Pillow if not already installed
-pip install Pillow
-
-# Run the packager script
-python package_extension.py
+python package.py
 ```
 
-This creates `image_scraper_pro_extension.zip` in the root directory, which can be uploaded directly to the [Chrome Developer Dashboard](https://chrome.google.com/webstore/devconsole).
+This generates a publication-ready ZIP bundle `image_scraper_pro_extension.zip` in the root folder. You can upload this zip file directly to the [Chrome Developer Dashboard](https://chrome.google.com/webstore/devconsole).
 
-For CWS submission metadata and permissions justifications, refer to [STORE_LISTING.md](STORE_LISTING.md). For user data policies, see the [PRIVACY_POLICY.md](PRIVACY_POLICY.md).
+For Web Store submission details and justifications, see [STORE_LISTING.md](STORE_LISTING.md).
 
 ---
 
 ## 📂 Project Structure
 
 ```
-├── backend/
-│   ├── database.py       # SQLAlchemy SQLite Setup (WAL Mode)
-│   ├── models.py         # SQLAlchemy Database models (Jobs & Images)
-│   ├── schemas.py        # Pydantic validation schemas
-│   ├── config.py         # Environment configurations
-│   └── main.py           # FastAPI endpoints & Zip exporter
-├── worker/
-│   ├── celery_app.py     # Celery App configurations
-│   └── tasks.py          # Worker task invoking Scrapy
-├── scraper/
-│   ├── scrapy.cfg        # Scrapy config
-│   └── scraper/
-│       ├── items.py      # Item schema
-│       ├── settings.py   # Scrapy settings with Playwright Launch configuration
-│       ├── middlewares.py# Random User Agent rotation
-│       ├── pipelines.py  # Asynchronous HTTP downloader, SHA256 check, and SQLite database writer
-│       └── spiders/
-│           └── image_spider.py # Dynamic dynamic scroll spider for Google, Bing, and Generic sites
 ├── extension/
-│   ├── manifest.json     # Chrome Extension Manifest V3
+│   ├── manifest.json     # Chrome Extension Manifest V3 metadata
 │   ├── popup.html        # Extension UI layout
-│   ├── style.css         # Glassmorphism dark-theme styling
-│   ├── popup.js          # REST Client and polling controller
-│   └── icons/            # CWS compliant icons (16, 48, 128)
+│   ├── popup.js          # Main popup UI state and event listeners
+│   ├── style.css         # Minimalist high-contrast variable stylesheet
+│   ├── background.js     # Service worker managing tabs, fetches, & JSZip
+│   ├── scraper.js        # Content script injected into Bing pages to scroll & extract
+│   ├── download.html     # Helper download tab interface
+│   ├── download.js       # Downloads the locally generated ZIP archive
+│   ├── lib/
+│   │   └── jszip.min.js  # JSZip library (v3.10.1)
+│   └── icons/            # Chrome Web Store compliant icons (16, 48, 128)
 │       ├── icon16.png
 │       ├── icon48.png
-│       └── icon128.png
-├── storage/              # Local storage for images and db.sqlite3
-├── logs/                 # Log directories for worker & api
-├── docker/
-│   ├── backend.Dockerfile
-│   └── worker.Dockerfile
-├── docker-compose.yml    # Runs Redis, FastAPI, Celery
-└── requirements.txt      # Main project dependencies
+│       ├── icon128.png
+│       ├── settings.png
+│       ├── completed.png
+│       ├── failed.png
+│       ├── delete_zip_file.png
+│       └── refresh.png
+├── package.py            # Packages the extension directory
+└── README.md             # Project documentation
 ```
-
----
-
-## 📡 REST API Documentation
-
-### 1. Health Check
-- **URL**: `GET /health`
-- **Response**: `{"status": "ok", "message": "Image Scraper Pro API is running"}`
-
-### 2. Start Scraping
-- **URL**: `POST /api/v1/scrape`
-- **Body**:
-  ```json
-  {
-    "query": "red sports cars",
-    "limit": 100,
-    "engine": "bing"
-  }
-  ```
-- **Response**: Returns Job metadata with ID, query, limits, and status (`pending`).
-
-### 3. List Jobs
-- **URL**: `GET /api/v1/jobs`
-- **Response**: List of all scraping jobs.
-
-### 4. Job Details
-- **URL**: `GET /api/v1/jobs/{job_id}`
-- **Response**: Details of the job including status (`pending`, `running`, `completed`, `failed`), and total scraped image counts.
-
-### 5. Job Results
-- **URL**: `GET /api/v1/jobs/{job_id}/results`
-- **Response**: List of image files scraped (urls, local path, sha256 hash, width, height, etc.).
-
-### 6. Export Dataset (Zip)
-- **URL**: `GET /api/v1/jobs/{job_id}/export`
-- **Response**: Serves a ZIP archive named `dataset_{query}_{job_id}.zip` containing:
-  - `images/` directory containing all deduplicated images named by their SHA256 hashes.
-  - `dataset_metadata.json` containing query metadata and image records.
-  - `dataset_metadata.csv` containing dataset logs ready to load into pandas or ML frameworks.
-
-### 7. Delete Job
-- **URL**: `DELETE /api/v1/jobs/{job_id}`
-- **Response**: Cleans up image files from disk, deletes export archives, and deletes database tables metadata records.
