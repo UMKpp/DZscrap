@@ -12,10 +12,10 @@ We take user privacy extremely seriously. The Extension is designed to operate a
 The Extension **does not collect, store, or transmit** any personal data, credentials, browsing activity, or telemetry. No tracking mechanisms, cookies, or analytics are embedded in the code.
 
 ### 2. Local-Only Storage
-The Extension utilizes the `chrome.storage.local` API for the sole purpose of retaining:
-* **Job History Logs**: Lists of your past scraping queries, counts, and job statuses.
-* **ZIP ArrayBuffers**: Temporary image archive bytes waiting to download.
-* **Clear Action**: A button is provided inside Settings to completely clear all history logs and cached ZIP buffers from the browser storage.
+The Extension utilizes the following APIs for local storage under your control:
+* **chrome.storage.local API**: Retains job history metadata (lists of past queries, limits, and job statuses).
+* **IndexedDB Store**: Retains temporary ZIP archive data in the browser's local sandbox to support file download.
+* **Clear Action**: A button is provided inside Settings to completely clear all history logs and cached ZIP data from both storage systems.
 
 ### 3. Outgoing Connections
 The Extension only communicates directly with:
