@@ -130,9 +130,10 @@ class ImageSpider(scrapy.Spider):
                 
                 logger.info(f"Scroll {scroll_attempts + 1}: Found {current_image_count} candidate image URLs.")
                 
-                # Terminate early if we have enough URLs
-                if current_image_count >= self.limit:
-                    logger.info(f"Reached limit target ({self.limit} images). Stopping scroll.")
+                # Target scroll candidate count to be 1.33x the limit to ensure we download at least 75% of the requested count
+                target_candidates = max(self.limit * 4 // 3, self.limit + 10)
+                if current_image_count >= target_candidates:
+                    logger.info(f"Reached candidate target ({target_candidates} images). Stopping scroll.")
                     break
                     
                 # Check if we are stuck and no new images are loaded
@@ -233,8 +234,10 @@ class ImageSpider(scrapy.Spider):
         logger.info(f"Starting pipeline processing for {len(image_urls)} unique image URLs...")
         
         for url in image_urls:
-            if self.scraped_count >= self.limit:
-                logger.info(f"Target limit of {self.limit} reached. Stopping yielding items.")
+            # Yield slightly more items to account for potential download/deduplication failures in the pipeline
+            yield_limit = max(self.limit * 4 // 3, self.limit + 10)
+            if self.scraped_count >= yield_limit:
+                logger.info(f"Target yield limit of {yield_limit} reached. Stopping yielding items.")
                 break
                 
             self.scraped_count += 1
