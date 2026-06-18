@@ -41,7 +41,7 @@ No need to configure databases, Celery queues, Redis, or FastAPI servers. DZscra
 
 #### Permission: `storage` & `unlimitedStorage`
 * **Purpose:** Stores the local job logs and historical progress.
-* **Justification:** Allows the extension to persist the jobs dashboard list and store the generated ZIP ArrayBuffers temporarily in browser memory across sessions.
+* **Justification:** Allows the extension to persist the jobs dashboard list across sessions.
 
 #### Permission: `scripting`
 * **Purpose:** Runs content script injection.
