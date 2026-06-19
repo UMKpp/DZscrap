@@ -25,11 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const connectionDot = document.getElementById("connection-dot");
   const connectionText = document.getElementById("connection-text");
 
-  // Initial setup: offline indicator turns green for serverless mode
-  connectionDot.className = "dot online";
-  connectionDot.style.backgroundColor = "#22c55e";
-  connectionText.innerText = "Serverless Mode";
-  btnStartScrape.disabled = false;
+  // Initial setup: active indicator (safely null-checked)
+  if (connectionDot) {
+    connectionDot.className = "dot online";
+    connectionDot.style.backgroundColor = "#22c55e";
+  }
+  if (connectionText) {
+    connectionText.innerText = "active";
+  }
+  if (btnStartScrape) {
+    btnStartScrape.disabled = false;
+  }
 
   // Load jobs on popup open
   fetchJobs();
@@ -97,6 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
         inputQuery.value = "";
         fetchJobs();
       } else {
+        if (connectionDot) connectionDot.style.backgroundColor = "#ef4444"; // red
+        if (connectionText) connectionText.innerText = "innactive";
         alert("Failed to queue scraping task in the extension background.");
       }
     });
@@ -110,6 +118,16 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.storage.local.get("jobs", (data) => {
       const jobs = data.jobs || [];
       renderJobs(jobs);
+      
+      // Update status indicator based on last job status
+      const hasFailedJob = jobs.length > 0 && jobs[0].status === "failed";
+      if (hasFailedJob) {
+        if (connectionDot) connectionDot.style.backgroundColor = "#ef4444"; // red
+        if (connectionText) connectionText.innerText = "innactive";
+      } else {
+        if (connectionDot) connectionDot.style.backgroundColor = "#22c55e"; // green
+        if (connectionText) connectionText.innerText = "active";
+      }
       
       // Determine if we need to poll (if any job is running or pending or downloading)
       const hasActiveJobs = jobs.some(j => j.status === "running" || j.status === "pending" || j.status === "downloading");
@@ -140,7 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
     jobsList.innerHTML = "";
     jobs.forEach(job => {
       const jobCard = document.createElement("div");
-      jobCard.className = "job-item";
+      const isRunning = job.status === "running" || job.status === "pending" || job.status === "downloading";
+      jobCard.className = `job-item${isRunning ? " running-job" : ""}`;
 
       const percent = Math.min(Math.round((job.total_downloaded / job.limit) * 100), 100) || 0;
       
@@ -149,10 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
       
       if (job.status === "running") {
         badgeClass = "running";
-        statusHtml = `<img src="icons/settings.png" class="status-icon status-icon-spin" alt="running"> running (${job.total_scraped || 0})`;
+        statusHtml = `running...`;
       } else if (job.status === "downloading") {
         badgeClass = "running";
-        statusHtml = `<img src="icons/settings.png" class="status-icon status-icon-spin" alt="downloading"> downloading`;
+        statusHtml = `downloading...`;
       } else if (job.status === "completed") {
         badgeClass = "completed";
         statusHtml = `<img src="icons/completed.png" class="status-icon" alt="done"> done`;
@@ -181,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="job-bottom-row" data-id="${job.id}">
           ${job.status === "completed" && job.total_downloaded > 0 ? 
             `<a href="download.html?job_id=${job.id}&filename=${encodeURIComponent(filename)}" target="_blank" class="download-zip-btn">Download zip</a>` : 
-            `<span></span>`
+            `<button class="download-zip-btn disabled" disabled>Download zip</button>`
           }
           <button class="delete-btn" title="Delete job">
             <img src="icons/delete_zip_file.png" alt="Delete">
