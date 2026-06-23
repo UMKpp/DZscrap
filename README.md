@@ -2,6 +2,14 @@
 
 DZscraper is a serverless Chrome Extension (Manifest V3) that helps you collect, filter, and download images from Bing Images for building machine learning datasets.
 
+**Tech Stack**
+- HTML
+- JavaScript
+- Vanilla CSS
+- Chrome Extension APIs (Manifest V3)
+- JSZip
+- IndexedDB
+
 It runs entirely in your browser, so there are no backend servers, APIs, databases, or external services involved. Everything—scraping, filtering, and ZIP creation—happens locally.
 
 ## Architecture Overview
